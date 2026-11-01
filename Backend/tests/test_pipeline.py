@@ -6,6 +6,7 @@ def test_sanitize_filename():
     assert sanitize_filename("../../some_path/call.wav") == "call.wav"
     assert sanitize_filename("call#$1.wav") == "call__1.wav"
 
+def test_validate_audio_file():
     # Valid files
     assert validate_audio_file("call.wav", 1000) is True
     assert validate_audio_file("call.mp3", 5 * 1024 * 1024) is True
@@ -15,6 +16,7 @@ def test_sanitize_filename():
     # Exceeding size
     assert validate_audio_file("call.wav", 11 * 1024 * 1024) is False
 
+def test_issue_detection():
     # Test billing terms
     assert issue_detector.detect_issue("My invoice is wrong and I was overcharged.") == "Billing"
     # Test refund terms
